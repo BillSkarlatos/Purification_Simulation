@@ -9,55 +9,119 @@ This repository contains a Monte Carlo simulation of adaptive vs. static entangl
 
 ## Images
 
-All of the plots below are located in the `images/` folder.  The relative path to any given image is `images/<filename>.png`.  
+Below are all of the plots located in the `images/` folder. Each image is embedded so you can see it directly in the README. The relative path to each file is `images/<filename>.png`.
 
-1. **`images/fidelity_surface.png`**  
-   *3D surface plot of average purified‐pair fidelity (adaptive protocol) as a function of amplitude‐damping (γ) and phase‐damping (p).*
+---
 
-2. **`images/yield_surface.png`**  
-   *3D surface plot of average purification yield (adaptive protocol) as a function of γ and p.*
+#### `fidelity_surface.png`  
+*3D surface plot of average purified‐pair fidelity (adaptive protocol) as a function of amplitude‐damping (γ) and phase‐damping (p).*
 
-3. **`images/fidelity_contour.png`**  
-   *2D contour map showing average purified‐pair fidelity (adaptive) over the (γ, p) grid.*
+![3D surface plot of average purified‐pair fidelity](images/fidelity_surface.png)
 
-4. **`images/yield_contour.png`**  
-   *2D contour map showing average purification yield (adaptive) over the (γ, p) grid.*
+---
 
-5. **`images/fidelity_vs_gamma.png`**  
-   *Line plot of average purified‐pair fidelity vs. γ (for a fixed p) under the adaptive protocol.*
+#### `yield_surface.png`  
+*3D surface plot of average purification yield (adaptive protocol) as a function of γ and p.*
 
-6. **`images/yield_vs_gamma.png`**  
-   *Line plot of average purification yield vs. γ (for a fixed p) under the adaptive protocol.*
+![3D surface plot of average purification yield](images/yield_surface.png)
 
-7. **`images/fidelity_vs_p.png`**  
-   *Line plot of average purified‐pair fidelity vs. p (for a fixed γ) under the adaptive protocol.*
+---
 
-8. **`images/yield_vs_p.png`**  
-   *Line plot of average purification yield vs. p (for a fixed γ) under the adaptive protocol.*
+#### `fidelity_contour.png`  
+*2D contour map showing average purified‐pair fidelity (adaptive) over the (γ, p) grid.*
 
-9. **`images/diff_fidelity_surface.png`**  
-   *3D surface plot of the fidelity difference (adaptive minus default/static) over γ and p.*
+![2D contour map of average purified‐pair fidelity](images/fidelity_contour.png)
 
-10. **`images/diff_yield_surface.png`**  
-    *3D surface plot of the yield difference (adaptive minus default/static) over γ and p.*
+---
 
-11. **`images/diff_fidelity_contour.png`**  
-    *2D contour map of fidelity difference (adaptive – default/static) over the (γ, p) grid.*
+#### `yield_contour.png`  
+*2D contour map showing average purification yield (adaptive) over the (γ, p) grid.*
 
-12. **`images/diff_yield_contour.png`**  
-    *2D contour map of yield difference (adaptive – default/static) over the (γ, p) grid.*
+![2D contour map of average purification yield](images/yield_contour.png)
 
-13. **`images/diff_fidelity_vs_gamma.png`**  
-    *Line plot of fidelity difference vs. γ (for a fixed p).*
+---
 
-14. **`images/diff_yield_vs_gamma.png`**  
-    *Line plot of yield difference vs. γ (for a fixed p).*
+#### `fidelity_vs_gamma.png`  
+*Line plot of average purified‐pair fidelity vs. γ (for a fixed p) under the adaptive protocol.*
 
-15. **`images/diff_fidelity_vs_p.png`**  
-    *Line plot of fidelity difference vs. p (for a fixed γ).*
+![Line plot of fidelity vs. gamma](images/fidelity_vs_gamma.png)
 
-16. **`images/diff_yield_vs_p.png`**  
-    *Line plot of yield difference vs. p (for a fixed γ).*
+---
+
+#### `yield_vs_gamma.png`  
+*Line plot of average purification yield vs. γ (for a fixed p) under the adaptive protocol.*
+
+![Line plot of yield vs. gamma](images/yield_vs_gamma.png)
+
+---
+
+#### `fidelity_vs_p.png`  
+*Line plot of average purified‐pair fidelity vs. p (for a fixed γ) under the adaptive protocol.*
+
+![Line plot of fidelity vs. p](images/fidelity_vs_p.png)
+
+---
+
+#### `yield_vs_p.png`  
+*Line plot of average purification yield vs. p (for a fixed γ) under the adaptive protocol.*
+
+![Line plot of yield vs. p](images/yield_vs_p.png)
+
+---
+
+#### `diff_fidelity_surface.png`  
+*3D surface plot of the fidelity difference (adaptive minus default/static) over γ and p.*
+
+![3D surface plot of fidelity difference](images/diff_fidelity_surface.png)
+
+---
+
+#### `diff_yield_surface.png`  
+*3D surface plot of the yield difference (adaptive minus default/static) over γ and p.*
+
+![3D surface plot of yield difference](images/diff_yield_surface.png)
+
+---
+
+#### `diff_fidelity_contour.png`  
+*2D contour map of fidelity difference (adaptive – default/static) over the (γ, p) grid.*
+
+![2D contour map of fidelity difference](images/diff_fidelity_contour.png)
+
+---
+
+#### `diff_yield_contour.png`  
+*2D contour map of yield difference (adaptive – default/static) over the (γ, p) grid.*
+
+![2D contour map of yield difference](images/diff_yield_contour.png)
+
+---
+
+#### `diff_fidelity_vs_gamma.png`  
+*Line plot of fidelity difference vs. γ (for a fixed p).*
+
+![Line plot of fidelity difference vs. gamma](images/diff_fidelity_vs_gamma.png)
+
+---
+
+#### `diff_yield_vs_gamma.png`  
+*Line plot of yield difference vs. γ (for a fixed p).*
+
+![Line plot of yield difference vs. gamma](images/diff_yield_vs_gamma.png)
+
+---
+
+#### `diff_fidelity_vs_p.png`  
+*Line plot of fidelity difference vs. p (for a fixed γ).*
+
+![Line plot of fidelity difference vs. p](images/diff_fidelity_vs_p.png)
+
+---
+
+#### `diff_yield_vs_p.png`  
+*Line plot of yield difference vs. p (for a fixed γ).*
+
+![Line plot of yield difference vs. p](images/diff_yield_vs_p.png)
 
 ---
 
