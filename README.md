@@ -136,10 +136,18 @@ Below are step‐by‐step instructions to install all dependencies, run the sim
 ```bash
 git clone https://github.com/BillSkarlatos/Purification_Simulation.git
 cd Purification_Simulation
-
-pip install --upgrade pip
-pip install -r deps.txt
-
-python main.py
 ```
 
+### 2. Install Dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r deps.txt
+```
+
+### 3. Run the code
+
+```bash
+python main.py
+python throughput_improvement.py
+```
