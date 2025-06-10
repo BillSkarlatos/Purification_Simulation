@@ -76,3 +76,17 @@ def dejmps_purify(rho1, rho2):
     # Trace out the measured qubits (indices 2 and 3) to keep only qubits [0, 1]
     purified_rho = rho_success.ptrace([0, 1])
     return purified_rho, success_prob
+
+def apply_filter(rho, alpha):
+    """
+    Apply the non-unitary local filter F(α)⊗F(α) to a 2-qubit state.
+    Returns (rho_filtered, success_prob).
+    """
+    # single-qubit filter
+    F = np.diag([np.sqrt(alpha), np.sqrt(1-alpha)])
+    F2 = qt.tensor(qt.Qobj(F), qt.Qobj(F))
+    rho_f = F2 * rho * F2.dag()
+    p_filt = float(rho_f.tr())
+    if p_filt == 0:
+        return None, 0.0
+    return (rho_f / p_filt), p_filt

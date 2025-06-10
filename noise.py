@@ -16,7 +16,7 @@ def phase_damp_kraus(p):
     """
     return [
         np.sqrt(1 - p) * qt.qeye(2),
-        np.sqrt(p) * qt.sigmaz() / 2
+        np.sqrt(p) * qt.sigmaz()
     ]
 
 def two_qubit_noise(rho, gamma, p):
