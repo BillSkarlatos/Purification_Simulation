@@ -94,16 +94,6 @@ python export_data_updated.py
 
 ---
 
-## Generating LaTeX Tables & Figures
-
-* Use `export_data_updated.py` output to produce LaTeX tables of nonzero \$\Delta F\$, \$\Delta Y\$.
-* Figures saved by `adaptive.py` can be included in your manuscript:
-
-  * `3D_delta_fidelity.png`, `3D_delta_yield.png`
-  * `delta_fidelity_contour.png`, `delta_yield_contour.png`
-
----
-
 ## Future Work
 
 * Extend lookup to deeper purification depths.
