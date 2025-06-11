@@ -1,13 +1,6 @@
-#!/usr/bin/env python3
-"""
-adaptive.py: adaptive DEJMPS purification using precomputed static-lookup table
-with single-qubit channel estimation, correct throughput accounting, and contour plots.
-"""
-
 import time
 import numpy as np
 import qutip as qt
-from qutip import fidelity
 from noise import two_qubit_noise, amp_damp_kraus, phase_damp_kraus
 from purification import dejmps_purify, apply_filter
 from visualize import plot_diff_surface, plot_diff_contour
@@ -42,7 +35,7 @@ def estimate_channel(gamma_true, p_true, N, M):
     proj1 = qt.basis(2,1) * qt.basis(2,1).dag()
     for _ in range(N):
         rho_out = single_qubit_noise(proj1, gamma_true, 0)
-        if np.random.rand() < float((proj1 * rho_out).tr()):
+        if np.random.rand() < float((proj1 * rho_out).tr().real):
             n1 += 1
     gamma_hat = 1 - n1/N
 
@@ -52,7 +45,7 @@ def estimate_channel(gamma_true, p_true, N, M):
     proj_minus = minus*minus.dag()
     for _ in range(M):
         rho_out = single_qubit_noise(plus*plus.dag(), 0, p_true)
-        if np.random.rand() < float((proj_minus * rho_out).tr()):
+        if np.random.rand() < float((proj_minus * rho_out).tr().real):
             m_minus += 1
     p_hat = 2*m_minus/M
 
@@ -74,9 +67,12 @@ def static_purification(gamma, p, d, alpha):
         survivors = new
         if not survivors:
             break
+
     init, final = 2**d, len(survivors)
-    Y = final/init if init>0 else 0
-    F = np.mean([fidelity(rho, bell_state) for rho in survivors]) if final>0 else 0.0
+    # Yield: fraction of surviving pairs
+    Y = final/init if init > 0 else 0
+    # Fidelity: overlap with ideal Bell state, per paper definition
+    F = np.mean([float((bell_proj * rho).tr().real) for rho in survivors]) if final > 0 else 0.0
     return F, Y
 
 # Load precomputed static lookup table

@@ -1,153 +1,113 @@
-# Purification_Simulation
+# Adaptive DEJMPS Purification Simulation
 
-This repository contains a Monte Carlo simulation of adaptive vs. static entanglement purification over noisy fiber‐optic channels (amplitude‐ and phase‐damping).  All of the generated plots live under `images/`.  Below, you will find:
-
-- A list of all images (file names) in `images/` and what each one illustrates.
-- Step‐by‐step instructions on how to install dependencies and run the code to reproduce the data and plots.
+This repository contains Python code for simulating and analyzing an **adaptive** DEJMPS entanglement purification protocol under combined amplitude- and phase-damping noise. The adaptive scheme uses a precomputed lookup table to select the optimal purification depth and filter strength based on real-time channel estimates.
 
 ---
 
-## Images
+## Repository Structure
 
-Below are all of the plots located in the `images/` folder. Each image is embedded so you can see it directly in the README. The relative path to each file is `images/<filename>.png`.
+* `noise.py`             : Defines single- and two-qubit noise channels (amplitude & phase damping).
+* `purification.py`      : Implements DEJMPS pair purification and local filtering operations.
+* `adaptive.py`          : Main simulation driver comparing static vs adaptive purification. Generates 3D surface & contour plots.
+* `export_data_updated.py`: Exports simulation metrics (fidelity, yield, throughput, deltas) to CSV (`adaptive_data_updated.csv`).
+* `lookup_table.py`      : Generates the static lookup table (`lookup_table.npy`) via Monte Carlo trials over depth and filter parameters.
+* `visualize.py`         : Plotting utilities for 3D surfaces and contour maps of differences.
 
----
+## Dependencies
 
-#### `fidelity_surface.png`  
-*3D surface plot of average purified‐pair fidelity (adaptive protocol) as a function of amplitude‐damping (γ) and phase‐damping (p).*
+* Python 3.8+
+* [NumPy](https://numpy.org/)
+* [QuTiP](https://qutip.org/) (for quantum objects & fidelity)
+* [Matplotlib](https://matplotlib.org/) (for plotting)
+* [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) (standard library)
 
-![3D surface plot of average purified‐pair fidelity](images/3D_Fidelity.png)
-
----
-
-#### `yield_surface.png`  
-*3D surface plot of average purification yield (adaptive protocol) as a function of γ and p.*
-
-![3D surface plot of average purification yield](images/3D_Yield.png)
-
----
-
-#### `fidelity_contour.png`  
-*2D contour map showing average purified‐pair fidelity (adaptive) over the (γ, p) grid.*
-
-![2D contour map of average purified‐pair fidelity](images/Avg_Fidelity.png)
-
----
-
-#### `yield_contour.png`  
-*2D contour map showing average purification yield (adaptive) over the (γ, p) grid.*
-
-![2D contour map of average purification yield](images/Ang_Yield.png)
-
----
-
-#### `fidelity_vs_gamma.png`  
-*Line plot of average purified‐pair fidelity vs. γ (for a fixed p) under the adaptive protocol.*
-
-![Line plot of fidelity vs. gamma](images/Fideliy_vs_gamma_p001.png)
-
----
-
-#### `yield_vs_gamma.png`  
-*Line plot of average purification yield vs. γ (for a fixed p) under the adaptive protocol.*
-
-![Line plot of yield vs. gamma](images/Yield_vs_gamma_p001.png)
-
----
-
-#### `fidelity_vs_p.png`  
-*Line plot of average purified‐pair fidelity vs. p (for a fixed γ) under the adaptive protocol.*
-
-![Line plot of fidelity vs. p](images/Fidelity_vs_p_gamma001.png)
-
----
-
-#### `yield_vs_p.png`  
-*Line plot of average purification yield vs. p (for a fixed γ) under the adaptive protocol.*
-
-![Line plot of yield vs. p](images/Yield_vs_p_gamma001.png)
-
----
-
-#### `diff_fidelity_surface.png`  
-*3D surface plot of the fidelity difference (adaptive minus default/static) over γ and p.*
-
-![3D surface plot of fidelity difference](images/3D_delta_fidelity.png)
-
----
-
-#### `diff_yield_surface.png`  
-*3D surface plot of the yield difference (adaptive minus default/static) over γ and p.*
-
-![3D surface plot of yield difference](images/3D_delta_yield.png)
-
----
-
-#### `diff_fidelity_contour.png`  
-*2D contour map of fidelity difference (adaptive – default/static) over the (γ, p) grid.*
-
-![2D contour map of fidelity difference](images/delts_fidelity.png)
-
----
-
-#### `diff_yield_contour.png`  
-*2D contour map of yield difference (adaptive – default/static) over the (γ, p) grid.*
-
-![2D contour map of yield difference](images/delta_yield.png)
-
----
-
-#### `diff_fidelity_vs_gamma.png`  
-*Line plot of fidelity difference vs. γ (for a fixed p).*
-
-![Line plot of fidelity difference vs. gamma](images/delta_fidelity_vs_gamma.png)
-
----
-
-#### `diff_yield_vs_gamma.png`  
-*Line plot of yield difference vs. γ (for a fixed p).*
-
-![Line plot of yield difference vs. gamma](images/delta_yield_vs_gamma.png)
-
----
-
-#### `diff_fidelity_vs_p.png`  
-*Line plot of fidelity difference vs. p (for a fixed γ).*
-
-![Line plot of fidelity difference vs. p](images/delta_fidelity_vs_p.png)
-
----
-
-#### `diff_yield_vs_p.png`  
-*Line plot of yield difference vs. p (for a fixed γ).*
-
-![Line plot of yield difference vs. p](images/delta_yield_vs_p.png)
-
----
-
-## How to Run the Code
-
-Below are step‐by‐step instructions to install all dependencies, run the simulation, extract data, and regenerate all plots.
-
-> **Note:** All commands assume you are in the repository root.
-
-### 1. Clone the Repository
+Install via pip:
 
 ```bash
-git clone https://github.com/BillSkarlatos/Purification_Simulation.git
-cd Purification_Simulation
-```
-
-### 2. Install Dependencies
-
-```bash
-pip install --upgrade pip
 pip install -r deps.txt
 ```
 
-### 3. Run the code
+---
+
+## Usage
+
+### 1. Generate Lookup Table
+
+This precomputes optimal purification parameters `(d, α)` for each noise grid point.
 
 ```bash
-python main.py
-python throughput_improvement.py
+python lookup_table.py
+# Produces lookup_table.npy
 ```
+
+### 2. Run Adaptive vs Static Simulation
+
+Compare static vs adaptive performance and generate figures.
+
+```bash
+python adaptive.py
+# Outputs 3D surface and contour PNGs under `figures/`
+```
+
+### 3. Export Metrics to CSV
+
+Extract fidelity, yield, throughput, and deltas for further analysis or table generation.
+
+```bash
+python export_data_updated.py
+# Creates adaptive_data_updated.csv
+```
+
+---
+
+## File Descriptions
+
+* **lookup\_table.py**: Monte Carlo loops over depths \[1,2,3] and filter strengths α∈\[0.1,0.9] to maximize either fidelity target (≥0.9) or fidelity. Saves `lookup_table.npy` of shape (20,20,2).
+
+* **adaptive.py**:
+
+  1. Loads `lookup_table.npy`.
+  2. Estimates noise parameters (γ,p) via single-qubit probes.
+  3. Looks up optimal `(d,α)` and applies static purification.
+  4. Computes adaptive purification and throughput cost.
+  5. Stores `ΔF`, `ΔY`, `ΔThroughput` and plots surfaces & contours.
+
+* **export\_data\_updated.py**:
+
+  * Uses the same static/adaptive routines.
+  * Writes `adaptive_data_updated.csv` with columns:
+    `gamma, p, d_static, alpha_static, F_static, Y_static, R_static, d_adaptive, alpha_adaptive, F_adaptive, Y_adaptive, R_adaptive, delta_F, delta_Y, delta_T`.
+
+* **noise.py**:
+
+  * `amp_damp_kraus(γ)`, `phase_damp_kraus(p)` return Kraus operators.
+  * `two_qubit_noise(ρ, γ, p)` applies both.
+
+* **purification.py**:
+
+  * `apply_filter(ρ, α) -> (ρ_filtered, p_success)` implements local filtering.
+  * `dejmps_purify(ρ1,ρ2) -> (ρ_purified, p_success)` implements one DEJMPS round.
+
+* **visualize.py**:
+
+  * `plot_diff_surface(...)` and `plot_diff_contour(...)` for generating PNGs.
+
+---
+
+## Generating LaTeX Tables & Figures
+
+* Use `export_data_updated.py` output to produce LaTeX tables of nonzero \$\Delta F\$, \$\Delta Y\$.
+* Figures saved by `adaptive.py` can be included in your manuscript:
+
+  * `3D_delta_fidelity.png`, `3D_delta_yield.png`
+  * `delta_fidelity_contour.png`, `delta_yield_contour.png`
+
+---
+
+## Future Work
+
+* Extend lookup to deeper purification depths.
+* Automate trigger logic in QKD software based on measured \$(\hatγ,\hat p)\$.
+* Integrate real-time lookup in hardware testbed.
+
+---

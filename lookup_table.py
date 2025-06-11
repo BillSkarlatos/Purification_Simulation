@@ -25,28 +25,28 @@ best_alpha = np.zeros((20, 20), dtype=np.float32)
 # Single-trial run
 
 def run_trial(gamma, p, d, alpha):
-    # Generate two noisy Bell pairs
-    rho1 = two_qubit_noise(bell_proj, gamma, p)
-    rho2 = two_qubit_noise(bell_proj, gamma, p)
-    current = rho1
+    # initial noisy pair
+    rho = two_qubit_noise(bell_proj, gamma, p)
     total_y = 1.0
-
     for _ in range(d):
-        fr1, pf1 = apply_filter(current, alpha)
+        fr, pf = apply_filter(rho, alpha)
+        total_y *= pf
+        if pf == 0:
+            return 0.0, 0.0   # no survivors
+        rho2 = two_qubit_noise(bell_proj, gamma, p)
         fr2, pf2 = apply_filter(rho2, alpha)
-        if pf1 == 0 or pf2 == 0:
+        total_y *= pf2
+        if pf2 == 0:
             return 0.0, 0.0
-        total_y *= pf1 * pf2
-
-        purho, psucc = dejmps_purify(fr1, fr2)
+        purho, psucc = dejmps_purify(fr, fr2)
+        total_y *= psucc
         if purho is None or psucc == 0:
             return 0.0, 0.0
-        total_y *= psucc
-        current = purho
-        rho2 = two_qubit_noise(bell_proj, gamma, p)
+        rho = purho
 
-    fidelity = float(qt.fidelity(current, bell_state))
-    return fidelity, total_y
+    # use overlap, not qutip.fidelity
+    F = float((bell_proj * rho).tr().real)
+    return F, total_y
 
 # Task processor for a single (i,j,d,alpha)
 def process_task(args):
