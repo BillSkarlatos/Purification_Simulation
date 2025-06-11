@@ -72,7 +72,7 @@ python export_data_updated.py
   4. Computes adaptive purification and throughput cost.
   5. Stores `ΔF`, `ΔY`, `ΔThroughput` and plots surfaces & contours.
 
-* **export\_data\_updated.py**:
+* **data\_extraction.py**:
 
   * Uses the same static/adaptive routines.
   * Writes `adaptive_data_updated.csv` with columns:
